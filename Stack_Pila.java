@@ -1,20 +1,24 @@
 import java.util.Stack;
 
 public class Stack_Pila implements UVGStack {
-    private Stack<Character> stack;
+    private Stack<Integer> stack;
+
+    public Stack_Pila() {
+        stack = new Stack<>();
+    }
 
     @Override
-    public void push(char x) {
+    public void push(int x) {
         stack.push(x);   
     }
 
     @Override
-    public char pop() {
+    public int pop() {
         return stack.pop();
     }
 
     @Override
-    public char top() {
+    public int top() {
         return stack.peek();
     }
 

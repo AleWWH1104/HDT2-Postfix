@@ -1,6 +1,6 @@
 public interface UVGStack {
-    void push(char x);
-    char pop();
-    char top();
+    void push(int item);
+    int pop();
+    int top();
     boolean isEmpty();
 }
