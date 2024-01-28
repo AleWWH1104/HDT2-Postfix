@@ -1,9 +1,33 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class PostfixCalc {
 
-    public String leerNotacion(){
-        return "";
+    public static String leerNotacion() {
+        try {
+            FileReader fileReader = new FileReader("datos.txt"); // Nombre del archivo con la expresión postfix
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line;
+            StringBuilder notacionBuilder = new StringBuilder();
+            while ((line = bufferedReader.readLine()) != null) {
+                notacionBuilder.append(line);
+            }
+            bufferedReader.close();
+    
+            String notacion = notacionBuilder.toString().replaceAll("\\s+", "");
+    
+            if (notacion.isEmpty()) {
+                System.out.println("El archivo está vacío.");
+                return ""; // Devuelve una cadena vacía en caso de archivo vacío
+            } else {
+                return notacion;
+            }
+        } catch (IOException e) {
+            return "" ; // Manejo básico de excepciones: devuelve una cadena vacía si hay un error de lectura
+        }
     }
+    
 
 
     public static int poFixcalc(String notacion){
@@ -34,15 +58,13 @@ public class PostfixCalc {
         return stack.pop();
     }
    
-    
-
-
-
-   
     public static void main(String[] args) {
-        String notacion = "42+351-*+";
-        int resultado = poFixcalc(notacion);
-        System.out.println(resultado);
+        String notacion = leerNotacion();
+        if (notacion.equals("")){
+            System.out.println("La expresion postfix no se puede realizar");
+        }else{
+            int resultado = poFixcalc(notacion);
+            System.out.println(resultado);}
         
     }
 
