@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.EmptyStackException;
 
 public class PostfixCalc {
 
@@ -30,31 +31,49 @@ public class PostfixCalc {
     
 
 
-    public static int poFixcalc(String notacion){
+    public static int poFixcalc(String notacion) {
         Stack_Pila stack = new Stack_Pila();
+
         char caracteres[] = notacion.toCharArray();
-        for (char x : caracteres){
-            if (x >= '0' && x <= '9'){
-                stack.push((int)(x - '0'));
-            }else {
-                int op2 = stack.pop();
-                int op1 = stack.pop();
-                switch (x) {
-                    case '+':
-                        stack.push(op1 + op2);
-                        break;
-                    case '-':
-                        stack.push(op1 - op2);
-                        break;
-                    case '*':
-                        stack.push(op1 * op2);
-                        break;
-                    case '/':
-                        stack.push(op1 / op2);
-                        break;
+        try {
+            for (char x : caracteres) {
+                if (x >= '0' && x <= '9') {
+                    stack.push((int) (x - '0'));
+                } else {
+                    int op2 = stack.pop();
+                    int op1 = stack.pop();
+
+                    switch (x) {
+                        case '+':
+                            stack.push(op1 + op2);
+                            break;
+                        case '-':
+                            stack.push(op1 - op2);
+                            break;
+                        case '*':
+                            stack.push(op1 * op2);
+                            break;
+                        case '/':
+                            if (op2 == 0) {
+                                throw new ArithmeticException("División por cero");
+                            }
+                            stack.push(op1 / op2);
+                            break;
+                        default:
+                            throw new IllegalArgumentException("Operador no reconocido: " + x);
+                    }
                 }
             }
+        } catch (EmptyStackException e) {
+            System.err.println("Error: Operadores insuficientes en la pila.");
+            return 0; //operadores insuficientes en la pila
         }
+
+        if (stack.isEmpty()) {
+            System.err.println("Error: La pila está vacía al finalizar la evaluación.");
+            return 0; //pila está vacia al realizar las operaciones
+        }
+
         return stack.pop();
     }
    
