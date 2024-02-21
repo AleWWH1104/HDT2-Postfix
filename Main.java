@@ -40,7 +40,7 @@ public class Main {
      */
     public static void main(String[] args) {
         String notacion = leerNotacion();
-        PostfixCalc calc = new PostfixCalc();
+        PostfixCalc<Integer> calc = new PostfixCalc();
         if (notacion.equals("")) {
             System.out.println("La expresión postfix no se puede realizar");
         } else {

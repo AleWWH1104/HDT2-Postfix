@@ -1,47 +1,47 @@
 import java.util.EmptyStackException;
+import java.util.Stack;
 
-/**
- * Esta clase proporciona métodos para realizar la evaluación de expresiones en notación postfix.
- * La expresión postfix se lee desde un archivo llamado "datos.txt".
- * 
- * @author Iris Ayala & David Dominguez
- * @version 1.0
- * @since 2024-01-25
- */
-public class PostfixCalc  {
-    /**
-     * Evalúa la expresión en notación postfix y devuelve el resultado.
-     *
-     * @param notacion Expresión en notación postfix.
-     * @return Resultado de la evaluación de la expresión postfix.
-     */
-    public int poFixcalc(String notacion) {
-        Stack_Pila stack = new Stack_Pila();
+public class PostfixCalc<T> {
+    private static PostfixCalc instance= null;  
+    
+    /*Constructor */
+    public PostfixCalc(){}
 
-        char caracteres[] = notacion.toCharArray();
+    /*Utilizacion de patron de diseno Singleton */
+    public static PostfixCalc getInstance(){
+        if (instance == null){
+            instance = new PostfixCalc();
+        }
+        return instance;
+    }
+
+    public int poFixcalc(String notation) {
+        Stack<T> stack = new Stack<>();
+        char[] characters = notation.toCharArray();
+
         try {
-            for (char x : caracteres) {
-                if (x >= '0' && x <= '9') {
-                    stack.push((int) (x - '0'));
+            for (char x : characters) {
+                if (Character.isDigit(x)) {
+                    stack.push((T) (Object) (x - '0')); // Convertir char a int y luego a tipo T
                 } else {
-                    int op2 = stack.pop();
-                    int op1 = stack.pop();
+                    int op2 = (int) (Object) stack.pop();
+                    int op1 = (int) (Object) stack.pop();
 
                     switch (x) {
                         case '+':
-                            stack.push(op1 + op2);
+                            stack.push((T) (Object) (op1 + op2)); // Convertir int a tipo T
                             break;
                         case '-':
-                            stack.push(op1 - op2);
+                            stack.push((T) (Object) (op1 - op2));
                             break;
                         case '*':
-                            stack.push(op1 * op2);
+                            stack.push((T) (Object) (op1 * op2));
                             break;
                         case '/':
                             if (op2 == 0) {
                                 throw new ArithmeticException("División por cero");
                             }
-                            stack.push(op1 / op2);
+                            stack.push((T) (Object) (op1 / op2));
                             break;
                         default:
                             throw new IllegalArgumentException("Operador no reconocido: " + x);
@@ -53,7 +53,7 @@ public class PostfixCalc  {
             return 0; // Operadores insuficientes en la pila
         }
 
-        return stack.pop();
+        return (int) (Object) stack.pop(); // Convertir tipo T a int y luego devolverlo
     }
-   
 }
+

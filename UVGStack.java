@@ -5,21 +5,21 @@
  * @version 1.0
  * @since 2024-01-25
  */
-public interface UVGStack {
+public interface UVGStack<T> {
 
     /**
      * Agrega un elemento al tope de la pila.
      *
      * @param item Elemento a ser agregado a la pila.
      */
-    void push(int item);
+    void push(T item);
 
     /**
      * Elimina y devuelve el elemento en el tope de la pila.
      *
      * @return Elemento en el tope de la pila.
      */
-    int pop();
+    T pop();
 
     /**
      * Devuelve el elemento en el tope de la pila sin eliminarlo.

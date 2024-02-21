@@ -8,9 +8,9 @@ import java.util.Stack;
  * @version 1.0
  * @since 2024-01-25
  */
-public class Stack_Pila implements UVGStack {
+public class Stack_Pila<T> implements UVGStack<T> {
 
-    private Stack<Integer> stack;
+    private Stack<T> stack;
 
     /**
      * Constructor que inicializa la pila.
@@ -25,7 +25,7 @@ public class Stack_Pila implements UVGStack {
      * @param x Elemento a ser agregado a la pila.
      */
     @Override
-    public void push(int x) {
+    public void push(T x) {
         stack.push(x);
     }
 
@@ -35,7 +35,7 @@ public class Stack_Pila implements UVGStack {
      * @return Elemento en el tope de la pila.
      */
     @Override
-    public int pop() {
+    public T pop() {
         return stack.pop();
     }
 
